@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+
+.test {
+  @apply rounded border border-gray-300;
+}
+
+@theme {
+}
