@@ -1,8 +1,10 @@
 @import 'tailwindcss';
 
-/* .test {
-  @apply rounded border border-gray-300;
-} */
+body {
+  @apply bg-(--color-light) relative;
 
-/* @theme { */
-/* } */
+}
+
+@theme {
+  --color-light: #f7f8fc;
+}
