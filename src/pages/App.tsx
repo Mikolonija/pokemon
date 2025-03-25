@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
-import pokemon from '@/assets/pokemon.webp'; // with import
+import pokemon from '@/assets/pokemon.webp';
 
 const App = () => {
   return (
