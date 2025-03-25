@@ -1,6 +1,6 @@
 function App() {
   return (
-    <div className="card">
+    <div className="test">
       <h1 className="underline">Hello world!</h1>
     </div>
   );
