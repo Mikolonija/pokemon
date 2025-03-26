@@ -1,4 +1,11 @@
 export interface EvolutionChain {
+  chain: Chain;
+  species: { name: string; url: string };
+  evolves_to: EvolutionChain[];
+  evolution_details: EvolutionDetail[];
+}
+
+interface Chain {
   species: { name: string; url: string };
   evolves_to: EvolutionChain[];
   evolution_details: EvolutionDetail[];
@@ -25,6 +32,7 @@ export interface PokemonDetails {
   stats: { base_stat: number }[];
   species: { url: string };
 }
+
 interface EvolutionDetail {
   min_level?: number;
 }

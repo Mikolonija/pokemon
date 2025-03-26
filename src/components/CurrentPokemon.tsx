@@ -1,12 +1,17 @@
 import { POKEMON_IMG_PATH } from '@/config';
 import { fetchPokemon } from '@/services/api';
-import { EvolutionChain, PokemonDetails, PokemonSpecies } from '@/utils/interface/pokemon';
+import {
+  EvolutionChain,
+  PokemonDetails,
+  PokemonSpecies,
+  SelectedPokemon,
+} from '@/utils/interface/pokemon';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 const CurrentPokemon = () => {
   const { id } = useParams<{ id: string }>();
-  const [selectedPokemon, setSelectedPokemon] = useState<any | null>(null);
+  const [selectedPokemon, setSelectedPokemon] = useState<SelectedPokemon | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -46,11 +51,11 @@ const CurrentPokemon = () => {
               selectedPokemon.details.sprites.versions['generation-v']['black-white'].animated
                 .front_default
             }
-            alt={selectedPokemon.name}
+            alt={selectedPokemon.details.name}
           />
           <p>N0{selectedPokemon.details.id}</p>
-          <p>{selectedPokemon.name}</p>
-          <p>{selectedPokemon.details.types.map((x: any) => x.type.name + ' ')}</p>
+          <p>{selectedPokemon.details.name}</p>
+          <p>{selectedPokemon.details.types.map((x) => x.type.name + ' ')}</p>
           <p>Pokedex Entry</p>
           <p>{selectedPokemon.text}</p>
           <h1>Height</h1>
@@ -58,9 +63,9 @@ const CurrentPokemon = () => {
           <h1>Weight</h1>
           <p>{selectedPokemon.details.weight}</p>
           <h1>Abilities</h1>
-          <p>{selectedPokemon.details.abilities.map((x: any) => x.ability.name + ' ')}</p>
+          <p>{selectedPokemon.details.abilities.map((x) => x.ability.name + ' ')}</p>
           <h1>Stats</h1>
-          <p>{selectedPokemon.details.stats.map((x: any) => x.base_stat + ' ')}</p>
+          <p>{selectedPokemon.details.stats.map((x) => x.base_stat + ' ')}</p>
           <h1>Evolution</h1>
           <p>
             <img
@@ -71,34 +76,36 @@ const CurrentPokemon = () => {
               alt=""
             />
             {selectedPokemon.evolution.chain.evolves_to.length > 0 ? (
-              selectedPokemon.evolution.chain.evolves_to.map((evolution: any, index: number) => (
-                <span key={index}>
-                  {
-                    <>
-                      <span>{'Lv.' + (evolution.evolution_details[0]?.min_level ?? '?')}</span>
-                    </>
-                  }
-                  <img
-                    onClick={() => getCurrentPokemon(convertToPokemonID(evolution.species.url))}
-                    src={`${POKEMON_IMG_PATH}${evolution.species.url.split('/')[6]}.png`}
-                    alt=""
-                  />
-                  {evolution.evolves_to && evolution.evolves_to.length > 0 && (
-                    <>
-                      {evolution.evolves_to.map((evo: any, i: number) => (
-                        <span key={i}>
-                          <span> {'Lv.' + (evo.evolution_details[0].min_level ?? '?')}</span>
-                          <img
-                            onClick={() => getCurrentPokemon(convertToPokemonID(evo.species.url))}
-                            src={`${POKEMON_IMG_PATH}${evo.species.url.split('/')[6]}.png`}
-                            alt=""
-                          />
-                        </span>
-                      ))}
-                    </>
-                  )}
-                </span>
-              ))
+              selectedPokemon.evolution.chain.evolves_to.map(
+                (evolution: EvolutionChain, index: number) => (
+                  <span key={index}>
+                    {
+                      <>
+                        <span>{'Lv.' + (evolution.evolution_details[0]?.min_level ?? '?')}</span>
+                      </>
+                    }
+                    <img
+                      onClick={() => getCurrentPokemon(convertToPokemonID(evolution.species.url))}
+                      src={`${POKEMON_IMG_PATH}${evolution.species.url.split('/')[6]}.png`}
+                      alt=""
+                    />
+                    {evolution.evolves_to && evolution.evolves_to.length > 0 && (
+                      <>
+                        {evolution.evolves_to.map((evo: EvolutionChain, i: number) => (
+                          <span key={i}>
+                            <span> {'Lv.' + (evo.evolution_details[0].min_level ?? '?')}</span>
+                            <img
+                              onClick={() => getCurrentPokemon(convertToPokemonID(evo.species.url))}
+                              src={`${POKEMON_IMG_PATH}${evo.species.url.split('/')[6]}.png`}
+                              alt=""
+                            />
+                          </span>
+                        ))}
+                      </>
+                    )}
+                  </span>
+                ),
+              )
             ) : (
               <span>No evolutions available.</span>
             )}
