@@ -24,12 +24,20 @@ const PokemonsList = () => {
             key={i}
             onClick={() => getCurrentPokemon(i + 1)}
           >
-            <img src={`${POKEMON_IMG_PATH}${i + 1}.png`} alt="" className="absolute -top-12" />
+            <img
+              src={`${POKEMON_IMG_PATH}${i + 1}.png`}
+              alt=""
+              className="absolute -top-12"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                (e.target as HTMLImageElement).src = '/src/assets/notFoundPokemon.png';
+                (e.target as HTMLImageElement).width = 96;
+              }}
+            />
             <p className="font-bold text-xs text-[#ffffff] bg-[#000000] px-2 py-1 rounded-md absolute -top-2 right-2">
               N°{i + 1}
             </p>
             <p className="capitalize font-bold text-center text-lg text-(--card-description-color)">
-              {p.name}
+              {p.name ? p.name : 'Unknow'}
             </p>
             <div>
               <p className="mt-3">
@@ -48,7 +56,7 @@ const PokemonsList = () => {
                     </span>
                   ) : (
                     <span className="px-2 py-1 font-bold uppercase text-xs rounded-md mr-2 bg-gray-800 text-white">
-                      Unknow
+                      Mistic
                     </span>
                   );
                 })}
