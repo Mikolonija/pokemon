@@ -43,16 +43,19 @@ const CurrentPokemon = () => {
     }
   };
   return (
-    <>
+    <div className="fixed w-[300px] h-full  bg-(--card-color) shadow-lg rounded-3xl">
       {selectedPokemon && (
-        <div>
-          <img
-            src={
-              selectedPokemon.details.sprites.versions['generation-v']['black-white'].animated
-                .front_default
-            }
-            alt={selectedPokemon.details.name}
-          />
+        <div className="p-6  text-center  grid gap-4">
+          <div className="relative h-20">
+            <img
+              className="absolute inset-x-0  mx-auto w-[130px] bottom-0"
+              src={
+                selectedPokemon.details.sprites.versions['generation-v']['black-white'].animated
+                  .front_default
+              }
+              alt={selectedPokemon.details.name}
+            />
+          </div>
           <p>N0{selectedPokemon.details.id}</p>
           <p>{selectedPokemon.details.name}</p>
           <p>{selectedPokemon.details.types.map((x) => x.type.name + ' ')}</p>
@@ -112,7 +115,7 @@ const CurrentPokemon = () => {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
