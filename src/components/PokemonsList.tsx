@@ -1,4 +1,4 @@
-import { POKEMON_IMG_PATH } from '@/config';
+import { POKEMON_IMG_PATH, POKEMON_TYPES } from '@/config';
 import useFetchPokemon from '@/hooks/useFetchPokemon';
 import { Pokemons } from '@/utils/interface/pokemons';
 import { useNavigate } from 'react-router';
@@ -15,13 +15,40 @@ const PokemonsList = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div>
+    <div className="flex flex-wrap gap-x-6 gap-y-16 justify-center">
       {pokemons &&
         pokemons.map((p: Pokemons, i) => (
-          <div key={i} onClick={() => getCurrentPokemon(i + 1)}>
-            <img src={`${POKEMON_IMG_PATH}${i + 1}.png`} alt="" />
-            <p>{p.name}</p>
-            <p>{p.types.map((x: string) => x + ' ')}</p>
+          <div
+            className="bg-(--card-color) relative w-60 rounded-3xl pt-12 pb-6 justify-center items-center flex flex-col cursor-pointer grow shadow-lg hover:shadow-2xl "
+            key={i}
+            onClick={() => getCurrentPokemon(i + 1)}
+          >
+            <img src={`${POKEMON_IMG_PATH}${i + 1}.png`} alt="" className="absolute -top-12" />
+            <p className="font-bold text-xs text-[#ffffff] bg-[#000000] px-2 py-1 rounded-md absolute -top-2 right-2">
+              N°{i + 1}
+            </p>
+            <p className="capitalize font-bold text-lg text-(--card-description-color)">{p.name}</p>
+            <div>
+              <p className="mt-3">
+                {p.types.map((typeId: string) => {
+                  const typeDetails = POKEMON_TYPES[typeId];
+                  return (
+                    typeDetails && (
+                      <span
+                        key={typeId}
+                        style={{
+                          color: typeDetails.color,
+                          backgroundColor: typeDetails.backgroundColor,
+                        }}
+                        className="px-2 py-1 font-bold uppercase  text-xs rounded-md mr-2 "
+                      >
+                        {typeDetails.name}
+                      </span>
+                    )
+                  );
+                })}
+              </p>
+            </div>
           </div>
         ))}
     </div>
