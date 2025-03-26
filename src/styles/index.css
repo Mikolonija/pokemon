@@ -2,7 +2,53 @@
 
 body {
   @apply bg-(--color-light) relative;
+}
 
+.loader {
+  @apply relative flex items-center justify-center w-full max-w-[6rem] mt-12 mb-12;
+}
+
+.loader::before,
+.loader::after {
+  @apply absolute rounded-full;
+  content: "";
+  animation: pulsOut 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.75));
+}
+
+.loader::before {
+  @apply w-full pb-[100%];
+  box-shadow: inset 0 0 0 1rem #D1D5DB;
+  animation-name: pulsIn;
+}
+
+.loader::after {
+  @apply w-[calc(100%-2rem)] pb-[calc(100%-2rem)] shadow-none;
+  box-shadow: 0 0 0 0 #D1D5DB;
+}
+
+@keyframes pulsIn {
+  0% {
+    box-shadow: inset 0 0 0 1rem #D1D5DB;
+    opacity: 1;
+  }
+
+  50%, 100% {
+    box-shadow: inset 0 0 0 0 #D1D5DB;
+    opacity: 0;
+  }
+}
+
+@keyframes pulsOut {
+  0%, 50% {
+    box-shadow: 0 0 0 0 #D1D5DB;
+    opacity: 0;
+  }
+
+  100% {
+    box-shadow: 0 0 0 1rem #D1D5DB;
+    opacity: 1;
+  }
 }
 
 @theme {
