@@ -1,4 +1,5 @@
 export enum PokemonType {
+  NORMAL = 'normal',
   FIGHTING = 'fighting',
   FLYING = 'flying',
   POISON = 'poison',
