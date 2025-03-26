@@ -4,7 +4,7 @@ import { Pokemons } from '@/utils/interface/pokemons';
 import { useNavigate, useParams } from 'react-router';
 
 const PokemonsList = () => {
-  const { pokemons, isPending, error } = useFetchPokemon(100, 0);
+  const { pokemons, isPending, error } = useFetchPokemon(1025, 0);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
