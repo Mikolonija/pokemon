@@ -7,6 +7,7 @@ const POKEMON_IMG_PATH =
 
 const POKEMON_TYPE_COUNT = 18;
 const POKEMON_TYPES: Record<string, PokemonTypeDetails> = {
+  [PokemonType.NORMAL]: { name: 'Normal', color: '#F8F8F8', backgroundColor: '#A0A0A0' },
   [PokemonType.FIGHTING]: { name: 'Fighting', color: '#D32F2F', backgroundColor: '#F8A09E' },
   [PokemonType.FLYING]: { name: 'Flying', color: '#5F4B8B', backgroundColor: '#D0C8FF' },
   [PokemonType.POISON]: { name: 'Poison', color: '#8E24AA', backgroundColor: '#E0A8D1' },

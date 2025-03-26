@@ -4,7 +4,7 @@ import { Pokemons } from '@/utils/interface/pokemons';
 import { useNavigate, useParams } from 'react-router';
 
 const PokemonsList = () => {
-  const { pokemons, isPending, error } = useFetchPokemon(100, 0);
+  const { pokemons, isPending, error } = useFetchPokemon(1025, 0);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const PokemonsList = () => {
       {pokemons &&
         pokemons.map((p: Pokemons, i) => (
           <div
-            className={`bg-(--card-color) relative w-60 rounded-3xl pt-12 pb-6 justify-center items-center flex flex-col cursor-pointer grow  hover:shadow-2xl ${id === (i + 1).toString() ? ' shadow-2xl' : 'shadow-lg'}`}
+            className={`bg-(--card-color) relative w-60 px-3  rounded-3xl pt-12 pb-6 justify-center items-center flex flex-col cursor-pointer grow  hover:shadow-2xl ${id === (i + 1).toString() ? ' shadow-2xl' : 'shadow-lg'}`}
             key={i}
             onClick={() => getCurrentPokemon(i + 1)}
           >
@@ -28,24 +28,28 @@ const PokemonsList = () => {
             <p className="font-bold text-xs text-[#ffffff] bg-[#000000] px-2 py-1 rounded-md absolute -top-2 right-2">
               N°{i + 1}
             </p>
-            <p className="capitalize font-bold text-lg text-(--card-description-color)">{p.name}</p>
+            <p className="capitalize font-bold text-center text-lg text-(--card-description-color)">
+              {p.name}
+            </p>
             <div>
               <p className="mt-3">
                 {p.types.map((typeId: string) => {
                   const typeDetails = POKEMON_TYPES[typeId];
-                  return (
-                    typeDetails && (
-                      <span
-                        key={typeId}
-                        style={{
-                          color: typeDetails.color,
-                          backgroundColor: typeDetails.backgroundColor,
-                        }}
-                        className="px-2 py-1 font-bold uppercase  text-xs rounded-md mr-2 "
-                      >
-                        {typeDetails.name}
-                      </span>
-                    )
+                  return typeDetails ? (
+                    <span
+                      key={typeId}
+                      style={{
+                        color: typeDetails.color,
+                        backgroundColor: typeDetails.backgroundColor,
+                      }}
+                      className="px-2 py-1 font-bold uppercase  text-xs rounded-md mr-2 "
+                    >
+                      {typeDetails.name}
+                    </span>
+                  ) : (
+                    <span className="px-2 py-1 font-bold uppercase text-xs rounded-md mr-2 bg-gray-800 text-white">
+                      Unknow
+                    </span>
                   );
                 })}
               </p>
