@@ -11,3 +11,9 @@ export interface Pokemons {
   name: string;
   types: string[];
 }
+
+export interface PokemonTypeDetails {
+  name: string;
+  color: string;
+  backgroundColor: string;
+}

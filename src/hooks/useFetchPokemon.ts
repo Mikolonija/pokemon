@@ -1,7 +1,7 @@
 import { useState, useEffect, useTransition } from 'react';
 import { fetchPokemonList, fetchPokemonTypes } from '@/services/api';
 import { Pokemons, PokemonTypes } from '@/utils/interface/pokemons';
-import { POKEMON_TYPES } from '@/config';
+import { POKEMON_TYPE_COUNT } from '@/config';
 
 const useFetchPokemon = (limit = 20, offset = 0) => {
   const [pokemons, setPokemons] = useState<Pokemons[]>([]);
@@ -22,11 +22,13 @@ const useFetchPokemon = (limit = 20, offset = 0) => {
 
   const addPokemonTypes = async (pokemonsList: Pokemons[]) => {
     const newPokemonsList: Pokemons[] = pokemonsList.map((p: Pokemons) => ({ ...p, types: [] }));
-    for (let typeId = 1; typeId <= POKEMON_TYPES; typeId++) {
+    for (let typeId = 1; typeId <= POKEMON_TYPE_COUNT; typeId++) {
       const pokemonNamesForType = await fetchPokemonType(typeId);
       pokemonNamesForType.pokemon.forEach((item: PokemonTypes) => {
         const foundPokemon = newPokemonsList.find((p: Pokemons) => p.name === item.pokemon.name);
-        if (foundPokemon) foundPokemon.types.push(pokemonNamesForType.name);
+        if (foundPokemon) {
+          foundPokemon.types.push(pokemonNamesForType.name);
+        }
       });
     }
     return newPokemonsList;

@@ -4,7 +4,7 @@ import PokemonsList from '@/components/PokemonsList';
 const Home = () => {
   return (
     <main>
-      <div className="flex gap-4">
+      <div className="flex gap-6 my-16">
         <div className="flex-1">
           <PokemonsList />
         </div>

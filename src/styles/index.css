@@ -6,8 +6,11 @@ body {
 }
 
 @theme {
+  --card-color: #ffffff;
+  --card-title-color: #a7adb8;
+  --card-description-color: #1d2b3f;
   --color-light: #f7f8fc;
   --screen-sm: 640px;
   --screen-md: 768px;
-  --screen-lg: 1024px;
+  --screen-lg: 1124px;
 }
