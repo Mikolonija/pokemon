@@ -1,10 +1,11 @@
 import { POKEMON_IMG_PATH, POKEMON_TYPES } from '@/config';
 import useFetchPokemon from '@/hooks/useFetchPokemon';
 import { Pokemons } from '@/utils/interface/pokemons';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 const PokemonsList = () => {
   const { pokemons, isPending, error } = useFetchPokemon(100, 0);
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const getCurrentPokemon = (currentPokemonID: number) => {
@@ -19,7 +20,7 @@ const PokemonsList = () => {
       {pokemons &&
         pokemons.map((p: Pokemons, i) => (
           <div
-            className="bg-(--card-color) relative w-60 rounded-3xl pt-12 pb-6 justify-center items-center flex flex-col cursor-pointer grow shadow-lg hover:shadow-2xl "
+            className={`bg-(--card-color) relative w-60 rounded-3xl pt-12 pb-6 justify-center items-center flex flex-col cursor-pointer grow  hover:shadow-2xl ${id === (i + 1).toString() ? ' shadow-2xl' : 'shadow-lg'}`}
             key={i}
             onClick={() => getCurrentPokemon(i + 1)}
           >
