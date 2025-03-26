@@ -1,24 +1,41 @@
-interface Species {
-  name: string;
-  url: string;
+export interface EvolutionChain {
+  species: { name: string; url: string };
+  evolves_to: EvolutionChain[];
+  evolution_details: EvolutionDetail[];
 }
 
-interface Sprites {
-  front_default: string;
-}
-
-interface PokemonDetails {
+export interface PokemonDetails {
   id: number;
-  species: Species;
-  sprites: Sprites;
-  stats: { base_stat: number; stat: { name: string } }[];
+  name: string;
   height: number;
   weight: number;
+  sprites: {
+    versions: {
+      'generation-v': {
+        'black-white': {
+          animated: {
+            front_default: string;
+          };
+        };
+      };
+    };
+  };
   types: { type: { name: string } }[];
   abilities: { ability: { name: string } }[];
+  stats: { base_stat: number }[];
+  species: { url: string };
+}
+interface EvolutionDetail {
+  min_level?: number;
 }
 
-export interface Pokemon {
-  url: string;
+export interface PokemonSpecies {
+  flavor_text_entries: { language: { name: string }; flavor_text: string }[];
+  evolution_chain: { url: string };
+}
+
+export interface SelectedPokemon {
   details: PokemonDetails;
+  text: string;
+  evolution: EvolutionChain;
 }
