@@ -5,6 +5,8 @@ const API_URL = 'https://pokeapi.co/api/v2';
 const POKEMON_IMG_PATH =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
+const MAX_OFFSET = 1025;
+const PAGE_SIZE = 30;
 const POKEMON_TYPE_COUNT = 18;
 const POKEMON_TYPES: Record<string, PokemonTypeDetails> = {
   [PokemonType.NORMAL]: { name: 'Normal', color: '#F8F8F8', backgroundColor: '#A0A0A0' },
@@ -28,4 +30,4 @@ const POKEMON_TYPES: Record<string, PokemonTypeDetails> = {
   [PokemonType.STELLAR]: { name: 'Stellar', color: '#D32F2F', backgroundColor: '#FF8A8A' },
 };
 
-export { API_URL, POKEMON_TYPES, POKEMON_IMG_PATH, POKEMON_TYPE_COUNT };
+export { API_URL, POKEMON_TYPES, POKEMON_IMG_PATH, POKEMON_TYPE_COUNT, MAX_OFFSET, PAGE_SIZE };
