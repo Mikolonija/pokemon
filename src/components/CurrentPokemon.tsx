@@ -45,10 +45,10 @@ const CurrentPokemon = () => {
   return (
     <div className="fixed w-[300px] h-full  bg-(--card-color) shadow-lg rounded-3xl">
       {selectedPokemon && (
-        <div className="p-6  text-center  grid gap-4">
-          <div className="relative h-20">
+        <div className="p-6 text-center grid gap-4">
+          <div className="relative">
             <img
-              className="absolute inset-x-0  mx-auto w-[130px] bottom-0"
+              className="absolute inset-x-0  mx-auto w-[130px]  bottom-0"
               src={
                 selectedPokemon.details.sprites.versions['generation-v']['black-white'].animated
                   .front_default
