@@ -81,8 +81,5 @@ body {
   --screen-sm: 640px;
   --screen-md: 768px;
   --screen-lg: 1124px;
-  --pokemon-grid-cols: auto 1fr;
-  --pokemon-grid-cols-1: auto auto auto auto;
-  --pokemon-grid-cols-2: auto auto;
 
 }
