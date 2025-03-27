@@ -1,4 +1,4 @@
-import { POKEMON_IMG_PATH } from '@/config';
+import { POKEMON_IMG_PATH, POKEMON_STATS, POKEMON_TYPES } from '@/config';
 import { fetchPokemon } from '@/services/api';
 import {
   EvolutionChain,
@@ -64,7 +64,6 @@ const CurrentPokemon = () => {
         </div>
       ) : selectedPokemon ? (
         <div className="p-6 text-center grid animate-slide-up">
-          {/* Pokemon Image */}
           <div className="relative flex justify-center">
             <div className="absolute bottom-0 h-[15vh] flex justify-center">
               {selectedPokemon?.details?.sprites?.versions?.['generation-v']?.['black-white']
@@ -84,67 +83,137 @@ const CurrentPokemon = () => {
           </div>
 
           {/* Pokemon Info */}
-          <p>N0{selectedPokemon.details.id}</p>
-          <p className="capitalize">{selectedPokemon.details.name}</p>
-          <p>{selectedPokemon.details.types.map((x) => x.type.name).join(', ')}</p>
-
-          {/* Pokedex Entry */}
-          <div>
-            <p className="font-semibold">Pokedex Entry</p>
-            <p>{selectedPokemon.text}</p>
+          <p className="font-bold text-md pt-4">#{selectedPokemon.details.id}</p>
+          <p className="capitalize font-bold text-2xl ">{selectedPokemon.details.name}</p>
+          <div className="mt-2">
+            {selectedPokemon.details.types.map((x, index: number) => {
+              const typeDetails = POKEMON_TYPES[x.type.name];
+              return typeDetails ? (
+                <span
+                  key={index}
+                  style={{
+                    color: typeDetails.color,
+                    backgroundColor: typeDetails.backgroundColor,
+                  }}
+                  className="px-2 py-1 font-bold uppercase text-xs rounded-md mr-2"
+                >
+                  {typeDetails.name}
+                </span>
+              ) : (
+                <span className="px-2 py-1 font-bold uppercase text-xs rounded-md mr-2 bg-gray-800 text-white">
+                  Mistic
+                </span>
+              );
+            })}
           </div>
+          <div className="pt-4">
+            <p className="font-semibold text-md uppercase">Pokedex Entry</p>
+            <p className="pt-2 w-auto text-sm">{selectedPokemon.text}</p>
+          </div>
+          <div className="flex  gap-2 flex-wrap   justify-between mt-4">
+            <div className="grow">
+              <h1 className="font-semibold text-md uppercase pb-1">Height</h1>
+              <p className="bg-gray-800 text-white px-3 py-1 rounded-md">
+                {selectedPokemon.details.height}m
+              </p>
+            </div>
+            <div className="grow">
+              <h1 className="font-semibold text-md uppercase pb-1">Weight</h1>
+              <p className="bg-gray-800 text-white px-3 py-1 rounded-md">
+                {selectedPokemon.details.weight}cm
+              </p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <h1 className="font-semibold text-md uppercase  pb-1">Abilities</h1>
+            <div className="flex flex-wrap gap-2  justify-center">
+              {selectedPokemon.details.abilities.map((x, index) => (
+                <span
+                  key={index}
+                  className="capitalize grow  bg-gray-800 text-white px-3 py-1 rounded-md text-center"
+                >
+                  {x.ability.name}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="mt-4">
+            <h1 className="font-semibold text-md uppercase  pb-1">Stats</h1>
+            <div className="flex justify-between gap-2">
+              {selectedPokemon.details.stats.map((x, index) => {
+                const stat = POKEMON_STATS[x.stat.name];
 
-          {/* Stats */}
-          <h1 className="font-semibold">Height</h1>
-          <p>{selectedPokemon.details.height}</p>
-          <h1 className="font-semibold">Weight</h1>
-          <p>{selectedPokemon.details.weight}</p>
-          <h1 className="font-semibold">Abilities</h1>
-          <p>{selectedPokemon.details.abilities.map((x) => x.ability.name).join(', ')}</p>
-          <h1 className="font-semibold">Stats</h1>
-          <p>{selectedPokemon.details.stats.map((x) => x.base_stat).join(', ')}</p>
-
-          {/* Evolution */}
-          <h1 className="font-semibold">Evolution</h1>
-          <p>
-            <img
-              className="cursor-pointer"
-              onClick={() =>
-                getCurrentPokemon(convertToPokemonID(selectedPokemon.evolution.chain.species.url))
-              }
-              src={`${POKEMON_IMG_PATH}${selectedPokemon.evolution.chain.species.url.split('/')[6]}.png`}
-              alt=""
-            />
-            {selectedPokemon.evolution.chain.evolves_to.length > 0 ? (
-              selectedPokemon.evolution.chain.evolves_to.map(
-                (evolution: EvolutionChain, index: number) => (
-                  <span key={index}>
-                    <span>{'Lv.' + (evolution.evolution_details[0]?.min_level ?? '?')}</span>
+                return (
+                  <div
+                    key={index}
+                    className={`p-1 grow rounded-md ${stat.bgColor} ${stat.textColor} text-center`}
+                  >
+                    <p className="text-sm font-semibold ">{stat.abbr}</p>
+                    <p className="text-sm font-semibold">{x.base_stat}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="mt-6 -mx-6  inset-shadow-xs py-4">
+            <h1 className="font-semibold text-md uppercase  ">Evolution</h1>
+            <div className="flex  justify-center items-center">
+              {selectedPokemon.evolution.chain.evolves_to.length > 0 ? (
+                <div className="grid grid-cols-(--pokemon-grid-cols) gap-2 ">
+                  <div className="cursor-pointer">
                     <img
-                      className="cursor-pointer"
-                      onClick={() => getCurrentPokemon(convertToPokemonID(evolution.species.url))}
-                      src={`${POKEMON_IMG_PATH}${evolution.species.url.split('/')[6]}.png`}
+                      onClick={() =>
+                        getCurrentPokemon(
+                          convertToPokemonID(selectedPokemon.evolution.chain.species.url),
+                        )
+                      }
+                      className="w-[50px]"
+                      src={`${POKEMON_IMG_PATH}${selectedPokemon.evolution.chain.species.url.split('/')[6]}.png`}
                       alt=""
                     />
-                    {evolution.evolves_to.length > 0 &&
-                      evolution.evolves_to.map((evo: EvolutionChain, i: number) => (
-                        <span key={i}>
-                          <span>{'Lv.' + (evo.evolution_details[0]?.min_level ?? '?')}</span>
-                          <img
-                            className="cursor-pointer"
-                            onClick={() => getCurrentPokemon(convertToPokemonID(evo.species.url))}
-                            src={`${POKEMON_IMG_PATH}${evo.species.url.split('/')[6]}.png`}
-                            alt=""
-                          />
-                        </span>
-                      ))}
-                  </span>
-                ),
-              )
-            ) : (
-              <span>No evolutions available.</span>
-            )}
-          </p>
+                  </div>
+                  {selectedPokemon.evolution.chain.evolves_to.map(
+                    (evolution: EvolutionChain, index: number) => (
+                      <div key={index} className="grid grid-cols-(--pokemon-grid-cols-1)  gap-2 ">
+                        <p className="w-auto h-full flex font-semibold   justify-center items-center text-sm">
+                          {'Lv.' + (evolution.evolution_details[0]?.min_level ?? '?')}
+                        </p>
+                        <img
+                          className="cursor-pointer w-[50px]"
+                          onClick={() =>
+                            getCurrentPokemon(convertToPokemonID(evolution.species.url))
+                          }
+                          src={`${POKEMON_IMG_PATH}${evolution.species.url.split('/')[6]}.png`}
+                          alt=""
+                        />
+                        {evolution.evolves_to.length > 0 &&
+                          evolution.evolves_to.map((evo: EvolutionChain, i: number) => (
+                            <div
+                              key={i}
+                              className="grid grid-cols-(--pokemon-grid-cols-2)  gap-2  "
+                            >
+                              <p className="w-auto h-full flex font-semibold  justify-center items-center text-sm">
+                                {'Lv.' + (evo.evolution_details[0]?.min_level ?? '?')}
+                              </p>
+                              <img
+                                className="cursor-pointer w-[50px]"
+                                onClick={() =>
+                                  getCurrentPokemon(convertToPokemonID(evo.species.url))
+                                }
+                                src={`${POKEMON_IMG_PATH}${evo.species.url.split('/')[6]}.png`}
+                                alt=""
+                              />
+                            </div>
+                          ))}
+                      </div>
+                    ),
+                  )}
+                </div>
+              ) : (
+                <span>No evolutions available.</span>
+              )}
+            </div>
+          </div>
         </div>
       ) : (
         <div className="p-6 text-center grid gap-4">
