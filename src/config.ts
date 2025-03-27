@@ -1,4 +1,5 @@
 import { PokemonType } from './utils/enums/pokemon';
+import { StatData } from './utils/interface/pokemon';
 import { PokemonTypeDetails } from './utils/interface/pokemons';
 
 const API_URL = 'https://pokeapi.co/api/v2';
@@ -29,5 +30,21 @@ const POKEMON_TYPES: Record<string, PokemonTypeDetails> = {
   [PokemonType.FAIRY]: { name: 'Fairy', color: '#C2185B', backgroundColor: '#F8D0E8' },
   [PokemonType.STELLAR]: { name: 'Stellar', color: '#D32F2F', backgroundColor: '#FF8A8A' },
 };
+const POKEMON_STATS: Record<string, StatData> = {
+  hp: { abbr: 'HP', bgColor: 'bg-red-300', textColor: 'text-red-800' },
+  attack: { abbr: 'ATK', bgColor: 'bg-orange-300', textColor: 'text-orange-800' },
+  defense: { abbr: 'DEF', bgColor: 'bg-blue-300', textColor: 'text-blue-800' },
+  'special-attack': { abbr: 'SPA', bgColor: 'bg-lime-300', textColor: 'text-lime-800' },
+  'special-defense': { abbr: 'SPD', bgColor: 'bg-purple-300', textColor: 'text-purple-800' },
+  speed: { abbr: 'SPE', bgColor: 'bg-teal-300', textColor: 'text-teal-800' },
+};
 
-export { API_URL, POKEMON_TYPES, POKEMON_IMG_PATH, POKEMON_TYPE_COUNT, MAX_OFFSET, PAGE_SIZE };
+export {
+  API_URL,
+  POKEMON_TYPES,
+  POKEMON_IMG_PATH,
+  POKEMON_TYPE_COUNT,
+  MAX_OFFSET,
+  PAGE_SIZE,
+  POKEMON_STATS,
+};

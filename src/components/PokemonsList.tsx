@@ -48,7 +48,14 @@ const PokemonsList = () => {
       </div>
     );
   }
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) {
+    return (
+      <div className="flex items-center justify-center">
+        <p className="text-(--card-description-color)">{error.message}</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex flex-wrap gap-x-6 gap-y-16 justify-center">

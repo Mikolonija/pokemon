@@ -51,6 +51,28 @@ body {
   }
 }
 
+@layer utilities {
+
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 @theme {
   --card-color: #ffffff;
   --card-title-color: #a7adb8;
@@ -59,4 +81,5 @@ body {
   --screen-sm: 640px;
   --screen-md: 768px;
   --screen-lg: 1124px;
+
 }

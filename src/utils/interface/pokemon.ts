@@ -29,14 +29,18 @@ export interface PokemonDetails {
   };
   types: { type: { name: string } }[];
   abilities: { ability: { name: string } }[];
-  stats: { base_stat: number }[];
+  stats: { base_stat: number; stat: { name: string } }[];
   species: { url: string };
 }
 
 interface EvolutionDetail {
   min_level?: number;
 }
-
+export interface StatData {
+  abbr: string;
+  bgColor: string;
+  textColor: string;
+}
 export interface PokemonSpecies {
   flavor_text_entries: { language: { name: string }; flavor_text: string }[];
   evolution_chain: { url: string };
