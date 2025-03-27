@@ -82,7 +82,6 @@ const CurrentPokemon = () => {
             </div>
           </div>
 
-          {/* Pokemon Info */}
           <p className="font-bold text-md pt-4">#{selectedPokemon.details.id}</p>
           <p className="capitalize font-bold text-2xl ">{selectedPokemon.details.name}</p>
           <div className="mt-2">
