@@ -42,14 +42,14 @@ const PokemonsList = () => {
       <div className="w-full flex justify-center mb-20">
         <input
           type="text"
-          className="w-full bg-(--card-color) h-12 px-4 rounded-l-3xl shadow-md text-lg outline-none transition-all focus:ring-2 focus:ring-blue-500"
+          className="w-full bg-(--card-color) h-12 px-4 rounded-l-3xl shadow-md text-lg outline-none transition-all focus:ring-2 "
           placeholder="Search Pokémon..."
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleSearch}
         />
         <button
           onClick={() => setSubmitSearchTerm(searchTerm)}
-          className="px-6 py-2 bg-blue-600 text-white font-semibold  rounded-r-3xl shadow-md hover:bg-blue-700 transition-all cursor-pointer"
+          className="px-6 py-2 bg-blue-600 text-white font-semibold  rounded-r-3xl shadow-md hover:bg-blue-700 transition-all cursor-pointer "
         >
           Search
         </button>
