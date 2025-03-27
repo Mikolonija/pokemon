@@ -161,11 +161,19 @@ const CurrentPokemon = () => {
                 <div className="flex justify-center items-center flex-wrap">
                   <div className="cursor-pointer flex  justify-center items-center ">
                     <img
+                      tabIndex={0}
                       onClick={() =>
                         getCurrentPokemon(
                           convertToPokemonID(selectedPokemon.evolution.chain.species.url),
                         )
                       }
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          getCurrentPokemon(
+                            convertToPokemonID(selectedPokemon.evolution.chain.species.url),
+                          );
+                        }
+                      }}
                       className="w-[50px]"
                       src={`${POKEMON_IMG_PATH}${selectedPokemon.evolution.chain.species.url.split('/')[6]}.png`}
                       alt=""
@@ -178,10 +186,16 @@ const CurrentPokemon = () => {
                           {'Lv.' + (evolution.evolution_details[0]?.min_level ?? '?')}
                         </p>
                         <img
+                          tabIndex={0}
                           className="cursor-pointer w-[50px]"
                           onClick={() =>
                             getCurrentPokemon(convertToPokemonID(evolution.species.url))
                           }
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              getCurrentPokemon(convertToPokemonID(evolution.species.url));
+                            }
+                          }}
                           src={`${POKEMON_IMG_PATH}${evolution.species.url.split('/')[6]}.png`}
                           alt=""
                         />
@@ -192,10 +206,16 @@ const CurrentPokemon = () => {
                                 {'Lv.' + (evo.evolution_details[0]?.min_level ?? '?')}
                               </p>
                               <img
+                                tabIndex={0}
                                 className="cursor-pointer w-[50px]"
                                 onClick={() =>
                                   getCurrentPokemon(convertToPokemonID(evo.species.url))
                                 }
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') {
+                                    getCurrentPokemon(convertToPokemonID(evo.species.url));
+                                  }
+                                }}
                                 src={`${POKEMON_IMG_PATH}${evo.species.url.split('/')[6]}.png`}
                                 alt=""
                               />

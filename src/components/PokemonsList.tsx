@@ -17,12 +17,6 @@ const PokemonsList = () => {
     p.name.toLowerCase().includes(submitSearchTerm.trim().toLowerCase()),
   );
 
-  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      setSubmitSearchTerm(event.currentTarget.value);
-    }
-  };
-
   if (isPending)
     return (
       <div className="flex items-center justify-center">
@@ -45,7 +39,11 @@ const PokemonsList = () => {
           className="w-full bg-(--card-color) h-12 px-4 rounded-l-3xl shadow-md text-lg outline-none transition-all focus:ring-2 "
           placeholder="Search Pokémon..."
           onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleSearch}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              setSubmitSearchTerm(e.currentTarget.value);
+            }
+          }}
         />
         <button
           onClick={() => setSubmitSearchTerm(searchTerm)}
@@ -62,9 +60,15 @@ const PokemonsList = () => {
             return (
               <div
                 key={index}
+                tabIndex={0}
                 className={`bg-(--card-color) relative w-60 px-3 rounded-3xl pt-12 pb-6 flex flex-col justify-center items-center cursor-pointer grow hover:shadow-2xl ${
                   id === index.toString() ? 'shadow-2xl' : 'shadow-lg'
                 }`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    getCurrentPokemon(index);
+                  }
+                }}
                 onClick={() => getCurrentPokemon(index)}
               >
                 <img
