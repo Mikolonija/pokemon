@@ -159,7 +159,7 @@ const CurrentPokemon = () => {
             <div>
               {selectedPokemon.evolution.chain.evolves_to.length > 0 ? (
                 <div className="flex justify-center items-center flex-wrap">
-                  <div className="cursor-pointer flex  justify-center items-center  mr-2">
+                  <div className="cursor-pointer flex  justify-center items-center ">
                     <img
                       onClick={() =>
                         getCurrentPokemon(
@@ -173,8 +173,8 @@ const CurrentPokemon = () => {
                   </div>
                   {selectedPokemon.evolution.chain.evolves_to.map(
                     (evolution: EvolutionChain, index: number) => (
-                      <div key={index} className="flex gap-2  justify-center items-center">
-                        <p className=" font-semibold   mr-2  text-sm">
+                      <div key={index} className="flex   justify-center items-center">
+                        <p className=" font-semibold   mx-2  text-sm">
                           {'Lv.' + (evolution.evolution_details[0]?.min_level ?? '?')}
                         </p>
                         <img
@@ -187,8 +187,8 @@ const CurrentPokemon = () => {
                         />
                         {evolution.evolves_to.length > 0 &&
                           evolution.evolves_to.map((evo: EvolutionChain, i: number) => (
-                            <div key={i} className="flex gap-2 justify-center items-center ">
-                              <p className="font-semibold  text-sm  ml-2 ">
+                            <div key={i} className="flex  justify-center items-center ">
+                              <p className="font-semibold  text-sm  mx-2 ">
                                 {'Lv.' + (evo.evolution_details[0]?.min_level ?? '?')}
                               </p>
                               <img
