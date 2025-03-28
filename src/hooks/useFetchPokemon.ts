@@ -33,7 +33,6 @@ const usePokemon = (id: number) => {
             evolution: evolutionData,
           });
         } catch (err) {
-          console.error('Error fetching Pokémon details:', err);
           setError('Failed to load Pokémon details.');
         } finally {
           setLoading(false);

@@ -29,7 +29,7 @@ const CurrentPokemonMobile = () => {
           <div className="loader"></div>
         </div>
       ) : error ? (
-        <div className="flex flex-col items-center justify-center  text-center">
+        <div className="flex flex-col items-center justify-center h-full  text-center">
           <p className="text-(--card-description-color)">{error}</p>
         </div>
       ) : (
