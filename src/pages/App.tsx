@@ -6,7 +6,7 @@ import pokemon from '@/assets/pokemon.webp';
 const App = () => {
   return (
     <div className="max-w-(--screen-lg) h-full mx-auto">
-      <img src={pokemon} alt="" className="hidden sm:block -z-1 fixed top-[-80px] left-[-80px] " />
+      <img src={pokemon} alt="" className="-z-1 fixed top-[-80px] left-[-80px] " />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

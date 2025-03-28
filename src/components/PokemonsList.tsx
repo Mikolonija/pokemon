@@ -1,26 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { POKEMON_IMG_PATH, POKEMON_TYPES } from '@/config';
-import useFetchPokemon from '@/hooks/useFetchPokemon';
+import useFetchPokemons from '@/hooks/useFetchPokemons';
 import { Pokemons } from '@/utils/interface/pokemons';
 
 const PokemonsList = () => {
-  const { pokemons, isPending, error } = useFetchPokemon(1025);
+  const { pokemons, isPending, error } = useFetchPokemons(1025);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [submitSearchTerm, setSubmitSearchTerm] = useState('');
-  const [visiblePokemons, setVisiblePokemons] = useState(30); // Initially load 30 Pokémon
+  const [visiblePokemons, setVisiblePokemons] = useState(30);
 
   const getCurrentPokemon = (currentPokemonID: number) => navigate(`/${currentPokemonID}`);
 
-  // Filtered Pokémon list based on search
   const filteredPokemons = pokemons.filter((p) =>
     p.name.toLowerCase().includes(submitSearchTerm.trim().toLowerCase()),
   );
 
-  // Function to load more Pokémon when scrolling
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
       setVisiblePokemons((prev) => Math.min(prev + 30, pokemons.length));
