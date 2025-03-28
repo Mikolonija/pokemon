@@ -74,7 +74,7 @@ const PokemonsList = () => {
 
       <div className="flex flex-wrap justify-center gap-x-6 gap-y-16">
         {filteredPokemons.length > 0 ? (
-          filteredPokemons.slice(0, visiblePokemons).map((p: Pokemons, i) => {
+          filteredPokemons.slice(0, visiblePokemons).map((p: Pokemons) => {
             const index = pokemons.indexOf(p) + 1;
             return (
               <div
