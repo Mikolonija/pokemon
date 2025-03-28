@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { POKEMON_IMG_PATH, POKEMON_TYPES } from '@/config';
 import useFetchPokemons from '@/hooks/useFetchPokemons';
 import { Pokemons } from '@/utils/interface/pokemons';
+import notFoundPokemon from '@/assets/notFoundPokemon.png';
 
 const PokemonsList = () => {
   const { pokemons, isPending, error } = useFetchPokemons(1025);
@@ -39,8 +40,13 @@ const PokemonsList = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center">
-        <p className="text-(--card-description-color)">{error.message}</p>
+      <div className="flex flex-col items-center justify-center text-center">
+        <div className="h-auto">
+          <img className="max-w-[200px]" src={notFoundPokemon} alt="Not Found Pokemon" />
+        </div>
+        <div className="mt-4 w-full">
+          <p className="ml-4 text-[var(--card-description-color)]">{error.message}</p>
+        </div>
       </div>
     );
 
