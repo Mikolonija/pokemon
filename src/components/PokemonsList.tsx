@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { POKEMON_IMG_PATH, POKEMON_TYPES } from '@/config';
 import useFetchPokemons from '@/hooks/useFetchPokemons';
 import { Pokemons } from '@/utils/interface/pokemons';
+import notFoundPokemon from '@/assets/notFoundPokemon.png';
 
 const PokemonsList = () => {
   const { pokemons, isPending, error } = useFetchPokemons(1025);
@@ -39,17 +40,22 @@ const PokemonsList = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center">
-        <p className="text-(--card-description-color)">{error.message}</p>
+      <div className="flex flex-col items-center justify-center text-center">
+        <div className="h-auto">
+          <img className="max-w-[200px]" src={notFoundPokemon} alt="Not Found Pokemon" />
+        </div>
+        <div className="mt-4 w-full">
+          <p className="ml-4 text-[var(--card-description-color)]">{error.message}</p>
+        </div>
       </div>
     );
 
   return (
     <>
-      <div className="w-full flex justify-center mb-20">
+      <div className="mb-20 flex w-full justify-center">
         <input
           type="text"
-          className="w-full bg-(--card-color) h-12 px-4 rounded-l-3xl shadow-md text-lg outline-none transition-all focus:ring-2"
+          className="h-12 w-full rounded-l-3xl bg-(--card-color) px-4 text-lg shadow-md transition-all outline-none focus:ring-2"
           placeholder="Search Pokémon..."
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={(e) => {
@@ -60,13 +66,13 @@ const PokemonsList = () => {
         />
         <button
           onClick={() => setSubmitSearchTerm(searchTerm)}
-          className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-r-3xl shadow-md hover:bg-blue-700 transition-all cursor-pointer"
+          className="cursor-pointer rounded-r-3xl bg-blue-600 px-6 py-2 font-semibold text-white shadow-md transition-all hover:bg-blue-700"
         >
           Search
         </button>
       </div>
 
-      <div className="flex flex-wrap gap-x-6 gap-y-16 justify-center">
+      <div className="flex flex-wrap justify-center gap-x-6 gap-y-16">
         {filteredPokemons.length > 0 ? (
           filteredPokemons.slice(0, visiblePokemons).map((p: Pokemons, i) => {
             const index = pokemons.indexOf(p) + 1;
@@ -74,7 +80,7 @@ const PokemonsList = () => {
               <div
                 key={index}
                 tabIndex={0}
-                className={`bg-(--card-color) relative w-60 px-3 rounded-3xl pt-12 pb-6 flex flex-col justify-center items-center cursor-pointer grow hover:shadow-2xl ${
+                className={`relative flex w-60 grow cursor-pointer flex-col items-center justify-center rounded-3xl bg-(--card-color) px-3 pt-12 pb-6 hover:shadow-2xl ${
                   id === index.toString() ? 'shadow-2xl' : 'shadow-lg'
                 }`}
                 onKeyDown={(e) => e.key === 'Enter' && getCurrentPokemon(index)}
@@ -89,10 +95,10 @@ const PokemonsList = () => {
                     (e.target as HTMLImageElement).width = 96;
                   }}
                 />
-                <p className="font-bold text-xs text-white bg-black px-2 py-1 rounded-md absolute -top-2 right-2">
+                <p className="absolute -top-2 right-2 rounded-md bg-black px-2 py-1 text-xs font-bold text-white">
                   N°{index}
                 </p>
-                <p className="capitalize font-bold text-lg text-center text-(--card-description-color)">
+                <p className="text-center text-lg font-bold text-(--card-description-color) capitalize">
                   {p.name || 'Unknown'}
                 </p>
                 <div className="mt-3">
@@ -105,7 +111,7 @@ const PokemonsList = () => {
                           color: typeDetails?.color || 'white',
                           backgroundColor: typeDetails?.backgroundColor || 'gray',
                         }}
-                        className="px-2 py-1 font-bold uppercase text-xs rounded-md mr-2"
+                        className="mr-2 rounded-md px-2 py-1 text-xs font-bold uppercase"
                       >
                         {typeDetails?.name || 'Mystic'}
                       </span>

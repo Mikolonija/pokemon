@@ -1,5 +1,5 @@
 import { useState, useEffect, useTransition } from 'react';
-import { fetchPokemonList, fetchPokemonTypes } from '@/services/api';
+import { fetchPokemonList, fetchPokemonTypes } from '@/api/pokemon';
 import { Pokemons, PokemonTypes } from '@/utils/interface/pokemons';
 import { POKEMON_TYPE_COUNT } from '@/config';
 

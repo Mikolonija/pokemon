@@ -1,6 +1,6 @@
-import { StatData } from '@/utils/interface/pokemon';
+import { Stat } from '@/utils/interface/pokemon';
 
-export const POKEMON_STATS: Record<string, StatData> = {
+export const POKEMON_STATS: Record<string, Stat> = {
   hp: { abbr: 'HP', bgColor: 'bg-red-300', textColor: 'text-red-800' },
   attack: { abbr: 'ATK', bgColor: 'bg-orange-300', textColor: 'text-orange-800' },
   defense: { abbr: 'DEF', bgColor: 'bg-blue-300', textColor: 'text-blue-800' },

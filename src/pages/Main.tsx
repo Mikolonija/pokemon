@@ -2,10 +2,10 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import Home from '@/pages/Home';
 import pokemon from '@/assets/pokemon.webp';
 
-const App = () => {
+const Main = () => {
   return (
-    <div className="max-w-(--screen-lg) h-full mx-auto">
-      <img src={pokemon} alt="" className="-z-1 fixed top-[-80px] left-[-80px] " />
+    <div className="mx-auto h-full max-w-(--screen-lg)">
+      <img src={pokemon} alt="" className="fixed top-[-80px] left-[-80px] -z-1" />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -16,10 +16,10 @@ const App = () => {
       <img
         src={pokemon}
         alt=""
-        className="hidden lg:block -z-1 fixed bottom-[-80px] right-[-80px] "
+        className="fixed right-[-80px] bottom-[-80px] -z-1 hidden lg:block"
       />
     </div>
   );
 };
 
-export default App;
+export default Main;
