@@ -22,11 +22,11 @@ const CurrentPokemon = () => {
       ) : selectedPokemon ? (
         <div className="animate-slide-up grid p-6 text-center">
           <div className="relative flex justify-center">
-            <div className="absolute bottom-0 flex h-[15vh] justify-center">
+            <div className="absolute bottom-0 flex h-[180px] justify-center">
               {selectedPokemon?.details?.sprites?.versions?.['generation-v']?.['black-white']
                 ?.animated?.front_default ? (
                 <img
-                  className="h-full max-w-[200px] object-contain"
+                  className="h-full max-w-[180px] object-contain"
                   src={
                     selectedPokemon.details.sprites.versions['generation-v']['black-white'].animated
                       .front_default
@@ -34,7 +34,13 @@ const CurrentPokemon = () => {
                   alt={selectedPokemon.details.name}
                 />
               ) : (
-                <img className="h-full max-w-[200px] object-contain" src={notFoundPokemon} alt="" />
+                <>
+                  <img
+                    className="h-full max-w-[180px] object-contain"
+                    src={notFoundPokemon}
+                    alt=""
+                  />
+                </>
               )}
             </div>
           </div>
@@ -182,8 +188,8 @@ const CurrentPokemon = () => {
       ) : (
         <div className="grid gap-4 p-6 text-center">
           <div className="relative flex justify-center">
-            <div className="absolute bottom-0 flex h-[15vh] justify-center">
-              <img className="h-full max-w-[200px] object-contain" src={notFoundPokemon} alt="" />
+            <div className="absolute bottom-0 flex h-[180px] justify-center">
+              <img className="h-full max-w-[180px] object-contain" src={notFoundPokemon} alt="" />
             </div>
           </div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
