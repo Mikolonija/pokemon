@@ -53,7 +53,7 @@ const CurrentPokemon = () => {
   };
 
   return (
-    <div className="fixed w-[300px] h-full bg-(--card-color) shadow-lg rounded-3xl ">
+    <div className="fixed w-[300px] h-full bg-(--card-color) shadow-lg rounded-3xl hidden lg:block">
       {loading ? (
         <div className="flex items-center justify-center  h-full">
           <div className="loader"></div>
