@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { POKEMON_IMG_PATH, POKEMON_TYPES } from '@/config';
 import useFetchPokemon from '@/hooks/useFetchPokemon';
@@ -8,14 +8,29 @@ const PokemonsList = () => {
   const { pokemons, isPending, error } = useFetchPokemon(1025);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [submitSearchTerm, setSubmitSearchTerm] = useState('');
+  const [visiblePokemons, setVisiblePokemons] = useState(30); // Initially load 30 Pokémon
 
   const getCurrentPokemon = (currentPokemonID: number) => navigate(`/${currentPokemonID}`);
 
+  // Filtered Pokémon list based on search
   const filteredPokemons = pokemons.filter((p) =>
     p.name.toLowerCase().includes(submitSearchTerm.trim().toLowerCase()),
   );
+
+  // Function to load more Pokémon when scrolling
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+      setVisiblePokemons((prev) => Math.min(prev + 30, pokemons.length));
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pokemons.length]);
 
   if (isPending)
     return (
@@ -36,7 +51,7 @@ const PokemonsList = () => {
       <div className="w-full flex justify-center mb-20">
         <input
           type="text"
-          className="w-full bg-(--card-color) h-12 px-4 rounded-l-3xl shadow-md text-lg outline-none transition-all focus:ring-2 "
+          className="w-full bg-(--card-color) h-12 px-4 rounded-l-3xl shadow-md text-lg outline-none transition-all focus:ring-2"
           placeholder="Search Pokémon..."
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={(e) => {
@@ -47,16 +62,16 @@ const PokemonsList = () => {
         />
         <button
           onClick={() => setSubmitSearchTerm(searchTerm)}
-          className="px-6 py-2 bg-blue-600 text-white font-semibold  rounded-r-3xl shadow-md hover:bg-blue-700 transition-all cursor-pointer "
+          className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-r-3xl shadow-md hover:bg-blue-700 transition-all cursor-pointer"
         >
           Search
         </button>
       </div>
+
       <div className="flex flex-wrap gap-x-6 gap-y-16 justify-center">
         {filteredPokemons.length > 0 ? (
-          filteredPokemons.map((p: Pokemons, i) => {
+          filteredPokemons.slice(0, visiblePokemons).map((p: Pokemons, i) => {
             const index = pokemons.indexOf(p) + 1;
-
             return (
               <div
                 key={index}
@@ -64,11 +79,7 @@ const PokemonsList = () => {
                 className={`bg-(--card-color) relative w-60 px-3 rounded-3xl pt-12 pb-6 flex flex-col justify-center items-center cursor-pointer grow hover:shadow-2xl ${
                   id === index.toString() ? 'shadow-2xl' : 'shadow-lg'
                 }`}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    getCurrentPokemon(index);
-                  }
-                }}
+                onKeyDown={(e) => e.key === 'Enter' && getCurrentPokemon(index)}
                 onClick={() => getCurrentPokemon(index)}
               >
                 <img
@@ -98,7 +109,7 @@ const PokemonsList = () => {
                         }}
                         className="px-2 py-1 font-bold uppercase text-xs rounded-md mr-2"
                       >
-                        {typeDetails?.name || 'Mistic'}
+                        {typeDetails?.name || 'Mystic'}
                       </span>
                     );
                   })}
