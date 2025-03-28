@@ -1,5 +1,5 @@
-import { useState, useEffect, startTransition } from 'react';
-import { fetchPokemon } from '@/services/api';
+import { useState, useEffect, useTransition } from 'react';
+import { fetchPokemon, fetchUnknown } from '@/api/pokemon';
 import {
   PokemonDetails,
   PokemonSpecies,
@@ -10,23 +10,18 @@ import { useNavigate } from 'react-router';
 
 const usePokemon = (id: number) => {
   const [selectedPokemon, setSelectedPokemon] = useState<SelectedPokemon | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const getCurrentPokemon = async (pokemonID: number) => {
-      setLoading(true);
-      setError(null);
       startTransition(async () => {
         try {
-          const pokeDetails: PokemonDetails = await fetchPokemon(pokemonID);
-          const speciesResponse = await fetch(pokeDetails.species.url);
-          const speciesData: PokemonSpecies = await speciesResponse.json();
-          const evolutionResponse = await fetch(speciesData.evolution_chain.url);
-          const evolutionData: EvolutionChain = await evolutionResponse.json();
-
+          const pokeDetailsData: PokemonDetails = await fetchPokemon(pokemonID);
+          const speciesData: PokemonSpecies = await fetchUnknown(pokeDetailsData.species.url);
+          const evolutionData: EvolutionChain = await fetchUnknown(speciesData.evolution_chain.url);
           setSelectedPokemon({
-            details: pokeDetails,
+            details: pokeDetailsData,
             text:
               speciesData.flavor_text_entries.find((x) => x.language.name === 'en')?.flavor_text ||
               'No description available.',
@@ -34,8 +29,6 @@ const usePokemon = (id: number) => {
           });
         } catch (err) {
           setError('Failed to load Pokémon details.');
-        } finally {
-          setLoading(false);
         }
       });
     };
@@ -47,7 +40,7 @@ const usePokemon = (id: number) => {
     }
   }, [id]);
 
-  return { selectedPokemon, loading, error };
+  return { selectedPokemon, isPending, error };
 };
 
 export const navigateToPokemon = (url: string, navigate: ReturnType<typeof useNavigate>) => {

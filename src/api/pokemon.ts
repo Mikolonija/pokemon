@@ -17,3 +17,9 @@ export const fetchPokemon = async (id = 1) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchUnknown = async (url: string) => {
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+};
