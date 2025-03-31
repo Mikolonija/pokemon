@@ -125,7 +125,7 @@ const CurrentPokemonMobile = () => {
                   })}
                 </div>
               </div>
-              <div className="-mx-6 mt-6 py-4 inset-shadow-xs">
+              <div className="-mx-6 mt-6 border-t-1 border-t-indigo-100 py-4">
                 <h1 className="text-md font-semibold uppercase">Evolution</h1>
                 <div>
                   {selectedPokemon.evolution.chain.evolves_to.length > 0 ? (
